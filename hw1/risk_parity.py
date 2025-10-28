@@ -10,6 +10,7 @@ data = pd.read_csv('returns.csv', index_col=0)*100
 train_data = data[(data.index >= '2022-01-01') & (data.index <= '2023-06-30')]
 test_data = data[(data.index > '2023-06-30')]
 cov = train_data.cov().values
+pd.DataFrame(data.cov()).to_csv('covariance_matrix.csv', index=False)
 n = cov.shape[0]
 
 # 风险平价组合权重计算
@@ -106,8 +107,6 @@ plot_risk_contributions(w_rp, cov_test, '风险平价组合风险贡献')
 plot_risk_contributions(w_eq, cov_test, '等权组合风险贡献')
 plot_risk_contributions(w_mv, cov_test, '均值方差组合风险贡献')
 
-# 风险平价权重: [0.06072605 0.09654299 0.11850184 0.0755955  0.14076409 0.14492804
-#  0.06562179 0.07465913 0.12546052 0.09720004]
 # 各资产风险贡献: [0.08496693 0.08447169 0.08501097 0.08481865 0.08490196 0.08491526
 #  0.08482652 0.08480408 0.0849832  0.0849753 ]
 # 是否近似平价？最大相对误差: 0.0046633688011455685
